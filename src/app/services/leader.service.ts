@@ -8,15 +8,24 @@ export class LeaderService {
 
   constructor() { }
 
-  getLeaders(): Leader[] {
-    return LEADERS;
+  getLeaders(): Promise<Leader[]> {
+    return new Promise( resolve => {
+      // Simulate server latency with 2 sec delay
+      setTimeout(() => resolve(LEADERS), 2000)
+    });
   }
 
-  Leader(id: number): Leader {
-    return LEADERS.filter((Leader) => (Leader.id === id))[0];
+  getLeader(id: number): Promise<Leader> {
+    return new Promise( resolve => {
+      // Simulate server latency with 2 sec delay
+      setTimeout(() => resolve(LEADERS.filter((Leader) => (Leader.id === id))[0]), 2000)
+    });
   }
 
-  getFeaturedLeader(): Leader {
-    return LEADERS.filter((Leader) => (Leader.featured))[0];
+  getFeaturedLeader(): Promise<Leader> {
+    return new Promise( resolve => {
+      // Simulate server latency with 2 sec delay
+      setTimeout(() => resolve(LEADERS.filter((Leader) => (Leader.featured))[0]), 2000)
+  });
   }
 }

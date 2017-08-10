@@ -24,6 +24,10 @@
             </md-card-actions>
         </md-card>
     </div>
+    <div [hidden]="dish">
+        <md-spinner></md-spinner>
+        <h4>Loading . . . Please Wait</h4>
+    </div>
 
     <div fxFlex="40" *ngIf="dish">
         <md-list>
@@ -35,6 +39,10 @@
                 <p md-line>-- {{comment.date | date}}</p>
             </md-list-item>
         </md-list>
+    </div>
+    <div [hidden]="dish">
+        <md-spinner></md-spinner>
+        <h4>Loading . . . Please Wait</h4>
     </div>
 
 </div>
