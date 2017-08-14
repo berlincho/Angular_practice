@@ -45,7 +45,51 @@
                 <p md-line>{{comment.author}}</p>
                 <p md-line>-- {{comment.date | date}}</p>
             </md-list-item>
+            <md-list-item *ngFor="let comment of commentInputArray">
+                <p md-line>{{comment.rating}}</p>
+                <p md-line>{{comment.comment}}</p>
+                <p md-line>{{comment.author}}</p>
+                <p md-line>-- {{comment.date | date}}</p>
+            </md-list-item>
         </md-list>
+        <md-list >
+            <md-list-item>
+                <span [hidden]="commentForm.invalid">
+                    <p md-line>{{commentInput.rating}}</p>
+                    <p md-line>{{commentInput.comment}}</p>
+                    <p md-line>{{commentInput.author}}</p>
+                </span>
+            </md-list-item>
+        </md-list>
+        <form novalidate [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+            <p>
+                <md-input-container dividerColor="{{ formErrors.author ? 'warn' : 'primary'}}">
+                    <input mdInput formControlName="author" placeholder="Name" type="text" required [(ngModel)]="commentInput.author">
+                    <md-hint>
+                        <span [hidden]="!(formErrors.author)">
+                            {{formErrors.author}}
+                        </span>
+                    </md-hint>
+                </md-input-container>
+            </p>
+            <table>
+                <td>
+                    <md-slider formControlName="rating" thumbLabel tickInterval="1" min="1" max="5" [(ngModel)]="commentInput.rating"></md-slider>
+                </td>
+            </table>
+            <p>
+                <md-input-container dividerColor="{{ formErrors.comment ? 'warn' : 'primary'}}">
+                    <textarea mdInput formControlName="comment" placeholder="Your Comment" rows=12 required [(ngModel)]="commentInput.comment"></textarea>
+                    <md-hint>
+                        <span [hidden]="!(formErrors.comment)">
+                            {{formErrors.comment}}
+                        </span>
+                    </md-hint>
+                </md-input-container>
+            </p>
+            <button type="submit" md-button class="background-primary text-floral-white"
+            [disabled]="commentForm.invalid">Submit</button>
+        </form>
     </div>
     <div [hidden]="dish">
         <md-spinner></md-spinner>
