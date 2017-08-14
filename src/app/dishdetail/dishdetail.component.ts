@@ -16,6 +16,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class DishdetailComponent implements OnInit {
   
+  errMess: string;
   commentInputArray: Comment[] = [];
   commentInput: Comment = {
     rating: 5,
@@ -59,7 +60,8 @@ export class DishdetailComponent implements OnInit {
 
     this.route.params
       .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id) });
+      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id) }, 
+        errmess => this.errMess=<any>errmess);
   }
 
   setPrevNext(dishId: number) {
